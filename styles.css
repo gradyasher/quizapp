@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#question {
+	font-size: 60;
+}
+
+.answer {
+	padding: 15px;
+	border: 2px solid grey;
+	border-radius: 5px;
+	background-color: white
+}
+
+.answer:hover {
+	cursor: pointer;
+	background-color: grey;
+}
