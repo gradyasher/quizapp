@@ -1,5 +1,6 @@
 var questions = [{
 		"question": "What nationality was Claude Monet?",
+		"correct": 3,
 		"answers": [{
 			"ans": "Mexican"
 		}, {
@@ -12,6 +13,7 @@ var questions = [{
 
 	}, {
 		"question": "Who taught Picasso?",
+		"correct": 2,
 		"answers": [{
 			"ans": "Van Gogh"
 		}, {
@@ -23,6 +25,7 @@ var questions = [{
 		}]
 	}, {
 		"question": "What was Dali's wife's name?",
+		"correct": 1,
 		"answers": [{
 			"ans": "Gala"
 		}, {
@@ -34,6 +37,7 @@ var questions = [{
 		}]
 	}, {
 		"question": "Matisse did not make art in which medium?",
+		"correct": 2,
 		"answers": [{
 			"ans": "Sculpture"
 		}, {
@@ -45,6 +49,7 @@ var questions = [{
 		}]
 	}, {
 		"question": "Where did Da Vinci spend his youth?",
+		"correct": 1,
 		"answers": [{
 			"ans": "Florence"
 		}, {
@@ -58,56 +63,48 @@ var questions = [{
 
 var counter = 0
 var score = 0
-var template = `<p id="question"></p>
+var template = `<div>
+				<p id="question"></p>
 				<p>Choose one of the following:</p>
 				<form>
 					<ul class="list">
 						<li>
 							<label for="a1"></label>
-							<input type="radio" name="q1" value="1" />
+							<input type="radio" name="ans" value="1" />
 						</li>
 						<li>
 							<label for="a2"></label>
-							<input type="radio" name="q2" value="1" />
+							<input type="radio" name="ans" value="2" />
 						</li>
 						<li>
 							<label for="a3"></label>
-							<input type="radio" name="q2" value="1" />
+							<input type="radio" name="ans" value="3" />
 						</li>
 						<li>
 							<label for="a4"></label>
-							<input type="radio" name="q2" value="1" />
+							<input type="radio" name="ans" value="4" />
 						</li>
 					</ul>
 					<input type="submit" value="Answer" />
-				</form>`
+				</form>
+				</div>`
 
 function loadQuestion() {
-
 	var toAppend = $(template)
 	toAppend.find("#question").text(questions[counter].question)
 	toAppend.find("label[for='a1']").text(Object.values(questions[counter].answers[0]))
 	toAppend.find("label[for='a2']").text(Object.values(questions[counter].answers[1]))
 	toAppend.find("label[for='a3']").text(Object.values(questions[counter].answers[2]))
 	toAppend.find("label[for='a4']").text(Object.values(questions[counter].answers[3]))
-	// put data into a template
-	// update values
-	// put into DOM
 	$('.questions').html(toAppend)
 	counter++
 }
 
-$(function() {
-	console.log(questions[counter].question)
-	loadQuestion()	
-})
+var userAnswer = $("input[name = 'ans']:checked").val()
 
-
-
-// start clickhandler
-	// hide .start-message
-	// show .question
-	// loadQuestion()
+function correctAnswer() {
+	
+}
 
 // question clickhandler
 	// get users answer
@@ -126,3 +123,19 @@ $(function() {
 	// hide restart-message
 	// show .question
 	//  loadQuestion()
+
+	function hideStart() {
+	$('#start-button').hide()
+	$('.start-message').hide()
+}
+
+
+
+$(function() {
+	$('#start-button').click( function(event) {
+    event.preventDefault();
+    hideStart();
+    loadQuestion();
+
+})
+});
