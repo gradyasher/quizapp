@@ -66,7 +66,7 @@ var score = 0
 var template = `<div>
 				<p id="question"></p>
 				<p>Choose one of the following:</p>
-				<form>
+				<form id="answers">
 					<ul class="list">
 						<li>
 							<label for="a1"></label>
@@ -85,7 +85,7 @@ var template = `<div>
 							<input type="radio" name="ans" value="4" />
 						</li>
 					</ul>
-					<input type="submit" value="Answer" />
+					<input id="submit" type="submit" value="Answer"/>
 				</form>
 				</div>`
 
@@ -99,8 +99,6 @@ function loadQuestion() {
 	$('.questions').html(toAppend)
 	counter++
 }
-
-var userAnswer = $("input[name = 'ans']:checked").val()
 
 function correctAnswer() {
 	
@@ -132,10 +130,14 @@ function correctAnswer() {
 
 
 $(function() {
-	$('#start-button').click( function(event) {
+	$('#start-button').click(function(event) {
     event.preventDefault();
     hideStart();
     loadQuestion();
-
-})
+});
+	$("#answers").on("click", "#submit", function(event) {
+		event.preventDefault();
+		$('#start-button').click();
+		console.log('hello')
+	})
 });
