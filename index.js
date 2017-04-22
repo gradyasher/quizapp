@@ -61,6 +61,24 @@ var questions = [{
 		}]
 	}]
 
+// question clickhandler
+	// get users answer
+	// compare answer to actual answer
+	// if they equal each other increment score counter
+	// if counter < questions.length
+		// loadQuestion()
+	// else
+		// hide .question
+		// Insert score into restart-message
+		// show .restart-message
+
+// restart clickhandler
+	// reset counter
+	// reset score
+	// hide restart-message
+	// show .question
+	//  loadQuestion()
+
 var counter = 0
 var score = 0
 var template = `<div>
@@ -85,11 +103,17 @@ var template = `<div>
 							<input type="radio" name="ans" value="4" />
 						</li>
 					</ul>
-					<input id="submit" type="submit" value="Answer"/>
+					<input id="submit" type="button" value="Answer"/>
 				</form>
 				</div>`
 
-function loadQuestion() {
+function loadContent() {
+	if (counter === questions.length) {
+		$('.questions').hide()
+		$('.restart-message').show()
+		$('.score').append(` ${score} / ${counter}`)
+	}
+	else {
 	var toAppend = $(template)
 	toAppend.find("#question").text(questions[counter].question)
 	toAppend.find("label[for='a1']").text(Object.values(questions[counter].answers[0]))
@@ -97,47 +121,66 @@ function loadQuestion() {
 	toAppend.find("label[for='a3']").text(Object.values(questions[counter].answers[2]))
 	toAppend.find("label[for='a4']").text(Object.values(questions[counter].answers[3]))
 	$('.questions').html(toAppend)
-	counter++
+	}
 }
 
 function correctAnswer() {
 	
 }
 
-// question clickhandler
-	// get users answer
-	// compare answer to actual answer
-	// if they equal each other increment score counter
-	// if counter < questions.length
-		// loadQuestion()
-	// else
-		// hide .question
-		// Insert score into restart-message
-		// show .restart-message
 
-// restart clickhandler
-	// reset counter
-	// reset score
-	// hide restart-message
-	// show .question
-	//  loadQuestion()
-
-	function hideStart() {
+function hideStart() {
 	$('#start-button').hide()
 	$('.start-message').hide()
 }
 
+function isCorrect() {
+	var checkedAnswer = $('input:checked')
+	console.log(checkedAnswer)
+	if (checkedAnswer.length === 0) {
+        alert("Please select an answer");
+        event.preventDefault();
+    }
+    else {
+        if (parseFloat(checkedAnswer.val()) === questions[counter].correct) {
+        	console.log('correct')
+        	counter++
+        	score++
+        }
+        else {
+        	console.log('incorrect')
+        	counter++
+        }
 
+    }
+}
+
+function Restart() {
+	// $('#restart-button').hide()
+	$('.restart-message').hide()
+	$('.start-message').show()
+	$('#start-button').show()
+}
 
 $(function() {
+	$('.restart-message').hide()
+
 	$('#start-button').click(function(event) {
-    event.preventDefault();
-    hideStart();
-    loadQuestion();
-});
-	$("#answers").on("click", "#submit", function(event) {
-		event.preventDefault();
+    	event.preventDefault();
+    	hideStart();
+    	loadContent();
+	});
+
+	$(".questions").on("click", "#submit", function(event) {
+		// event.preventDefault();
+		isCorrect();
 		$('#start-button').click();
-		console.log('hello')
+	});
+
+	$('#restart-button').click(function(event) {
+		event.preventDefault();
+		counter = 1
+		score = 0
+		Restart();
 	})
 });
