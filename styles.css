@@ -3,13 +3,21 @@
   font-size: 20px;
 }
 
-body {
+html, body {
   font-family: 'Roboto', sans-serif;
+  height: 100%;
+}
+
+.indigo.lighten-5 {
+	height: 100%;
 }
 
 .container {
   max-width: 600px;
   margin: 0 auto;
+  padding: 25px;
+  border: 2px;
+  background-color: white;
 }
 
 #question {
@@ -26,4 +34,11 @@ body {
 .answer:hover {
 	cursor: pointer;
 	background-color: grey;
+}
+
+button, input {
+	background-color: #ffb300;
+	padding: 10px;
+	border-radius: 5px;	
+	border: none;
 }
